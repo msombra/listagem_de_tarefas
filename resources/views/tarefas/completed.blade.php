@@ -77,7 +77,12 @@
             <div>
                 <a href="{{ route('tarefas.index') }}" class="btn btn-dark me-2">Voltar</a>
             </div>
-            <div>
+            <div class="d-flex justify-content align-items-center gap-3">
+                @if ($qtd_tarefas > 1)
+                    <small><b>Quantidade:</b> {{ $qtd_tarefas }} tarefas</small>
+                @else
+                    <small><b>Quantidade:</b> {{ $qtd_tarefas }} tarefa</small>
+                @endif
                 {{ $tarefas->links() }}
             </div>
         </div>

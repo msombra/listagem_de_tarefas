@@ -100,7 +100,8 @@
                     </svg>
                 </a>
             </div>
-            <div>
+            <div class="d-flex justify-content align-items-center gap-3">
+                <small><b>Quantidade:</b> {{ $qtd_tarefas }} tarefas</small>
                 {{ $tarefas->links() }}
             </div>
         </div>
