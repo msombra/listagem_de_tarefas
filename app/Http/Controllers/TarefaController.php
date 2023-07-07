@@ -34,6 +34,12 @@ class TarefaController extends Controller
         return redirect()->route('tarefas.index');
     }
 
+    public function deconclude(Tarefa $tarefa, $id) {
+        $tarefa->where('id', $id)->update(['concluido' => false]);
+
+        return redirect()->route('tarefas.completed_list');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

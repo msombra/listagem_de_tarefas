@@ -31,6 +31,7 @@ Route::post('/store', [TarefaController::class, 'store'])->name('tarefas.store')
 //Route::get('/{id}', [TarefaController::class, 'show'])->name('tarefas.show');
 Route::get('/concluidos', [TarefaController::class, 'completedList'])->name('tarefas.completed_list');
 Route::get('/{id}/completed', [TarefaController::class, 'completed'])->name('tarefas.completed');
+Route::get('/{id}/deconclude', [TarefaController::class, 'deconclude'])->name('tarefas.deconclude');
 Route::get('/{id}/edit', [TarefaController::class, 'edit'])->name('tarefas.edit');
 Route::put('/{id}/update', [TarefaController::class, 'update'])->name('tarefas.update');
 Route::delete('/{id}/delete', [TarefaController::class, 'destroy'])->name('tarefas.destroy');
