@@ -18,14 +18,25 @@
             @csrf()
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label fw-bold">Título</label>
-                <input type="text" name="titulo" class="form-control border-primary" id="exampleFormControlInput1" placeholder="">
+                <input type="text" name="titulo" class="form-control border-primary" id="exampleFormControlInput1" placeholder="" value="{{ old('titulo') }}">
                 @if ($errors->has('titulo'))
-                    <small class="text-danger"><i>Campo de preenchimento obrigatório</i></small>
+                    <small class="text-danger"><i>
+                        @foreach($errors->get('titulo') as $error)
+                            {{ $error }}
+                        @endforeach
+                    </i></small>
                 @endif
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label fw-bold">Descrição</label>
-                <textarea class="form-control border-primary" name="descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control border-primary" name="descricao" id="exampleFormControlTextarea1" rows="3">{{ old('descricao') }}</textarea>
+                @if ($errors->has('descricao'))
+                    <small class="text-danger"><i>
+                        @foreach($errors->get('descricao') as $error)
+                            {{ $error }}
+                        @endforeach
+                    </i></small>
+                @endif
             </div>
             <div class="mb-3 d-flex justify-content-end">
                 <a href="{{ route('tarefas.index') }}" class="btn btn-dark me-2">Voltar</a>

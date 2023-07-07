@@ -10,18 +10,22 @@ class TarefaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Tarefa $tarefas)
+    public function index(Tarefa $tarefa)
     {
-        $tarefas = $tarefas->where('concluido', false)->orderBy('created_at' , 'desc')->paginate(6);
+        $tarefas = $tarefa->where('concluido', false)->orderBy('created_at' , 'desc')->paginate(6);
 
-        return view('tarefas.index', compact('tarefas'));
+        $qtd_tarefas = $tarefa->where('concluido', false)->get()->count();
+
+        return view('tarefas.index', compact('tarefas', 'qtd_tarefas'));
     }
 
-    public function completedList(Tarefa $tarefas)
+    public function completedList(Tarefa $tarefa)
     {
-        $tarefas = $tarefas->where('concluido', true)->orderBy('created_at' , 'desc')->paginate(6);
+        $tarefas = $tarefa->where('concluido', true)->orderBy('created_at' , 'desc')->paginate(6);
 
-        return view('tarefas.completed', compact('tarefas'));
+        $qtd_tarefas = $tarefa->where('concluido', true)->get()->count();
+
+        return view('tarefas.completed', compact('tarefas', 'qtd_tarefas'));
     }
 
     public function completed(Tarefa $tarefa, $id) {
@@ -33,9 +37,9 @@ class TarefaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Tarefa $tarefa)
     {
-        return view('tarefas.create');
+        return view('tarefas.create', compact('tarefa'));
     }
 
     /**
@@ -43,10 +47,18 @@ class TarefaController extends Controller
      */
     public function store(Request $request, Tarefa $tarefa)
     {
-        $validar = $request->validate([
+        $regras = [
             'titulo' => 'required|max:60',
             'descricao' => 'max:100'
-        ]);
+        ];
+
+        $mensagens = [
+            'titulo.required' => 'Campo de preenchimento obrigatório',
+            'titulo.max' => 'O campo não pode ter mais de 60 caracteres',
+            'descricao' => 'O campo não pode ter mais de 100 caracteres'
+        ];
+
+        $validar = $request->validate($regras, $mensagens);
 
         $tarefa->create($validar);
 
