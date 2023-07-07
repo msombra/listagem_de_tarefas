@@ -17,11 +17,17 @@ class TarefaController extends Controller
         return view('tarefas.index', compact('tarefas'));
     }
 
-    public function completed(Tarefa $tarefas)
+    public function completedList(Tarefa $tarefas)
     {
         $tarefas = $tarefas->where('concluido', true)->orderBy('created_at' , 'desc')->paginate(6);
 
         return view('tarefas.completed', compact('tarefas'));
+    }
+
+    public function completed(Tarefa $tarefa, $id) {
+        $tarefa->where('id', $id)->update(['concluido' => true]);
+
+        return redirect()->route('tarefas.index');
     }
 
     /**
@@ -46,19 +52,6 @@ class TarefaController extends Controller
 
         return redirect()->route('tarefas.index');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string|int $id, Tarefa $tarefa)
-    {
-        /* if(!$tarefa->find($id)) {
-            return back();
-        }
-
-        return view('tarefas.show', compact('tarefa')); */
-    }
-
 
     /**
      * Show the form for editing the specified resource.
